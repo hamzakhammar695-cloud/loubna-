@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Loubna</title>
+    <style>
+        :root {
+            --purple-glow: #3d1a5b; 
+            --royal-purple: #9b59b6; 
+            --silver: #e0e0e0;
+            --card-bg: rgba(20, 10, 30, 0.95);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--purple-glow) 0%, #0a050f 100%);
+            color: #fff;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #flower-explosion {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            opacity: 0;
+            animation: explode 6s ease-out infinite;
+        }
+
+        @keyframes explode {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(var(--tr)); opacity: 0; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            width: 88%;
+            max-width: 420px;
+            padding: 30px 20px;
+            border-radius: 25px;
+            border: 1px solid var(--royal-purple);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            z-index: 10;
+            backdrop-filter: blur(15px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 10px 0;
+            background: linear-gradient(to bottom, #fff, var(--royal-purple), var(--silver));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            color: var(--silver);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-size: 0.75rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        /* Modified Slider Container for Toggle */
+        .slider-container {
+            width: 100%;
+            height: 280px;
+            margin: 15px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid rgba(155, 89, 182, 0.3);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .slider-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .slider-container img.active {
+            opacity: 1;
+        }
+
+        #msgBtn {
+            background: linear-gradient(45deg, #4b0082, var(--royal-purple));
+            color: #fff;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 11;
+        }
+
+        #secretMessage {
+            display: none;
+            margin-top: 20px;
+            color: #f0f0f0;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            padding: 20px 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="flower-explosion"></div>
+
+    <div class="card">
+        <p class="subtitle">Happy Birthday</p>
+        <h1>LOUBNA</h1>
+
+        <div class="slider-container" id="slider">
+            <img src="img/l1.jpeg" class="active" alt="1">
+            <img src="img/li1.jpeg" alt="2">
+            <img src="img/l2.jpeg" alt="3">
+            <img src="img/li2.jpeg" alt="4">
+            <img src="img/lh1.png" alt="5">
+            <img src="img/kolchi.JPG" alt="6">
+        </div>
+        
+        <div id="secretMessage">
+            Joyeux aniversaire loubnaaaa,<br><br>
+             3id milad sa3id l3o9ba l 80 barraka fin ghada tzidi (bhala ma3ndkch 80 aslan ou mkhabyaha) mohim khti raki 3ziza ou ghalya ou i can do everythink gha bch tb9ay dima dahka(fch kadahki spontane katjik zwina) 
+            & wlh ila t es une personne special ou lah ydkhal 3lik had 2026 b seha ou salma ou nchaalah b chi ferha f lakher (16 ra no9ta hta hya galek 16 ma3ajbahach)<br><br>
+            <strong>Love you always!</strong><br><br>
+            <a href="player.html">WRKI HNA :)</a>
+        </div>
+
+        <button id="msgBtn" onclick="toggleMessage()">Read Message</button>
+    </div>
+
+    <script>
+        const container = document.getElementById('flower-explosion');
+        const particles = ['💜', '✨', '🌸', '🔮', '⭐', '🌹'];
+
+        function createExplosion() {
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const p = document.createElement('div');
+                    p.className = 'particle';
+                    p.innerHTML = particles[Math.floor(Math.random() * particles.length)];
+                    
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.min(window.innerWidth, window.innerHeight) * 0.5;
+                    const tx = Math.cos(angle) * (distance + Math.random() * 100) + 'px';
+                    const ty = Math.sin(angle) * (distance + Math.random() * 100) + 'px';
+                    const tr = (Math.random() * 360) + 'deg';
+
+                    p.style.setProperty('--tx', tx);
+                    p.style.setProperty('--ty', ty);
+                    p.style.setProperty('--tr', tr);
+                    p.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                    p.style.animationDuration = (4 + Math.random() * 3) + 's';
+
+                    container.appendChild(p);
+                }, i * 100);
+            }
+        }
+
+        let currentPhoto = 0;
+        const photos = document.querySelectorAll('.slider-container img');
+
+        function nextPhoto() {
+            photos[currentPhoto].classList.remove('active');
+            currentPhoto = (currentPhoto + 1) % photos.length;
+            if(photos[currentPhoto]) photos[currentPhoto].classList.add('active');
+        }
+
+        let slideInterval = setInterval(nextPhoto, 3500);
+
+        // Updated Toggle Function
+        function toggleMessage() {
+            const slider = document.getElementById('slider');
+            const message = document.getElementById('secretMessage');
+            const btn = document.getElementById('msgBtn');
+
+            if (message.style.display === 'block') {
+                // Return to Photos
+                message.style.display = 'none';
+                slider.style.display = 'block';
+                setTimeout(() => {
+                    slider.style.opacity = '1';
+                    slider.style.transform = 'scale(1)';
+                }, 10);
+                btn.innerHTML = 'Read Message';
+            } else {
+                // Show Message
+                slider.style.opacity = '0';
+                slider.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    slider.style.display = 'none';
+                    message.style.display = 'block';
+                }, 500);
+                btn.innerHTML = 'Back to Photos';
+            }
+        }
+
+        createExplosion();
+    </script>
+</body>
+</html>
